@@ -1,6 +1,5 @@
 const Book = require('../models/bookModel');
 
-// Create a new book
 exports.createBook = async (req, res) => {
     try {
         const { title, author, genre, ISBN, price } = req.body;
@@ -12,23 +11,43 @@ exports.createBook = async (req, res) => {
     }
 };
 
-// Get books with filters
-exports.getBooks = async (req, res) => {
-    const { genre, author, minPrice, maxPrice } = req.query;
-    let query = {};
-    if (genre) query.genre = genre;
-    if (author) query.author = author;
-    if (minPrice || maxPrice) query.price = { $gte: minPrice || 0, $lte: maxPrice || Infinity };
-
+exports.getBooks = async (req, res, next) => {
     try {
-        const books = await Book.find(query);
-        res.status(200).json(books);
+        const { page = 1, limit = 10, genre, author, minPrice, maxPrice, search } = req.query;
+
+        const query = {};
+        if (genre) query.genre = genre;
+        if (author) query.author = author;
+        if (minPrice || maxPrice) {
+            query.price = {};
+            if (minPrice) query.price.$gte = parseFloat(minPrice);
+            if (maxPrice) query.price.$lte = parseFloat(maxPrice);
+        }
+        if (search) {
+            query.$or = [
+                { title: { $regex: search, $options: 'i' } },
+                { description: { $regex: search, $options: 'i' } },
+            ];
+        }
+        const totalBooks = await Book.countDocuments(query);
+        const books = await Book.find(query)
+            .skip((page - 1) * limit)
+            .limit(parseInt(limit));
+
+        
+        res.status(200).json({
+            totalBooks,
+            currentPage: parseInt(page),
+            totalPages: Math.ceil(totalBooks / limit),
+            books,
+        });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        next(error);
     }
 };
 
-// Update a book
+
+
 exports.updateBook = async (req, res) => {
     try {
         const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -39,7 +58,6 @@ exports.updateBook = async (req, res) => {
     }
 };
 
-// Delete a book
 exports.deleteBook = async (req, res) => {
     try {
         const deletedBook = await Book.findByIdAndDelete(req.params.id);

@@ -1,19 +1,16 @@
 const Order = require('../models/orderModel');
 const Book = require('../models/bookModel');
 
-// Create a new order
 exports.createOrder = async (req, res) => {
     const { customerName, customerEmail, books } = req.body;
 
     try {
-        // Validate if all books exist
         const bookIds = books.map((book) => book.bookId);
         const foundBooks = await Book.find({ _id: { $in: bookIds } });
         if (foundBooks.length !== books.length) {
             return res.status(404).json({ message: 'Some books are not found in inventory.' });
         }
 
-        // Create and save the order
         const newOrder = new Order({ customerName, customerEmail, books });
         const savedOrder = await newOrder.save();
         res.status(201).json(savedOrder);
@@ -22,7 +19,7 @@ exports.createOrder = async (req, res) => {
     }
 };
 
-// Get all orders with optional filters
+
 exports.getOrders = async (req, res) => {
     const { customerName, status, startDate, endDate } = req.query;
     let query = {};
@@ -44,7 +41,6 @@ exports.getOrders = async (req, res) => {
     }
 };
 
-// Update an existing order
 exports.updateOrder = async (req, res) => {
     const { id } = req.params;
     const { status, books } = req.body;
@@ -53,7 +49,7 @@ exports.updateOrder = async (req, res) => {
         const updatedFields = {};
         if (status) updatedFields.status = status;
         if (books) {
-            // Validate if all books exist
+            
             const bookIds = books.map((book) => book.bookId);
             const foundBooks = await Book.find({ _id: { $in: bookIds } });
             if (foundBooks.length !== books.length) {
@@ -76,7 +72,6 @@ exports.updateOrder = async (req, res) => {
     }
 };
 
-// Delete an order
 exports.deleteOrder = async (req, res) => {
     const { id } = req.params;
 
