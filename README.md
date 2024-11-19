@@ -20,7 +20,7 @@ Set up the environment variables:
 Create a .env file in the project root with the following values:
 
 ```
-MONGO_URI= "mongodb+srv://Akshu:Akshu2626@cluster0.opeazef.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+MONGO_URI= "mongodb+srv://Akshu:akshu123@cluster0.fajs8.mongodb.net/aviraa?retryWrites=true&w=majority&appName=Cluster0"
 JWT_SECRET="my_jwt_secret"
 ```
 
