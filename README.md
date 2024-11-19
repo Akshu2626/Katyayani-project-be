@@ -16,10 +16,11 @@ Create a .env file in the project root with the following values:
 makefile
 Copy code
 PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
+```
+MONGO_URI= "mongodb+srv://Akshu:Akshu2626@cluster0.opeazef.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+JWT_SECRET="my_jwt_secret"```
 Start the server:
 
 bash
 Copy code
-npm start
+```npm start```
