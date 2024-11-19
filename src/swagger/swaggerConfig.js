@@ -6,7 +6,7 @@ const options = {
         info: {
             title: "Bookstore API Documentation",
             version: "1.0.0",
-            description: "API documentation for the bookstore management system",
+            description: "API documentation for the bookstore management system and the BASE URL = http://localhost:5000/api",
         },
         servers: [
             {
