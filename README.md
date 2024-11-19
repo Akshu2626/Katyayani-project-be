@@ -1,3 +1,7 @@
+Google Doc link : https://docs.google.com/document/d/1FGHUexy6NkFYCMDzvPoEX9lWMyUkYoYR6u1JDWl6DsQ/edit?usp=sharing
+
+
+
 Installation
 Clone the repository:
 
@@ -17,7 +21,7 @@ Create a .env file in the project root with the following values:
 
 ```
 MONGO_URI= "mongodb+srv://Akshu:Akshu2626@cluster0.opeazef.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  JWT_SECRET="my_jwt_secret"
+JWT_SECRET="my_jwt_secret"
 ```
 
 Start the server:
