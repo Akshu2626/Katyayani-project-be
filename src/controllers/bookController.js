@@ -11,6 +11,7 @@ exports.createBook = async (req, res) => {
     }
 };
 
+
 exports.getBooks = async (req, res, next) => {
     try {
         const { page = 1, limit = 10, genre, author, minPrice, maxPrice, search } = req.query;
