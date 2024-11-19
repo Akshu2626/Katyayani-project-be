@@ -7,7 +7,7 @@ Clone the repository:
 
 bash
 Copy code
-git clone https://github.com/your-username/bookstore-management-api.git
+git clone https://github.com/Akshu2626/Katyayani-project-be.git
 
 cd bookstore-management-api
 
